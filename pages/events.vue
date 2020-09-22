@@ -5,7 +5,7 @@
       <div class="field">
         <label class="label">日時</label>
         <div class="control">
-          <input class="input" type="datetime-local" v-model="date">
+          <input class="input" type="date" v-model="date">
         </div>
       </div>
       <div class="field">
@@ -21,8 +21,8 @@
           </div>
         </form>
       </div>
-      <li v-for="event in events" :key="event.title">
-        {{ event.title }}
+      <li v-for="event in events" :key="event.date">
+        {{ event.date }} {{ event.title }}
       </li>
     </div>
   </div>
@@ -44,9 +44,13 @@ export default {
   methods: {
     addEvent: function() {
       const event = {
+        date: this.date,
         title: this.title
       };
+
       this.$store.commit('add', event);
+
+      this.date = '';
       this.title = '';
     }
   }
