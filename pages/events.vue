@@ -21,7 +21,7 @@
           </div>
         </form>
       </div>
-      <li v-for="event in events" :key="event.date">
+      <li v-for="event in events" :key="event.id">
         {{ event.date }} {{ event.title }}
       </li>
     </div>
@@ -44,6 +44,7 @@ export default {
   methods: {
     addEvent: function() {
       const event = {
+        id: this.events.length + 1,
         date: this.date,
         title: this.title
       };
