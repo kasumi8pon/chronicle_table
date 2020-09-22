@@ -21,7 +21,7 @@
           </div>
         </form>
       </div>
-      <li v-for="event in events" :key="event.id">
+      <li v-for="event in sortedEvents" :key="event.id">
         {{ event.date }} {{ event.title }}
       </li>
     </div>
@@ -36,11 +36,24 @@ export default {
       title: '',
     }
   },
+
   computed: {
       events() {
         return this.$store.state.events
+      },
+      sortedEvents() {
+        return this.events.slice().sort(function(a, b) {
+          if (a.date < b.date) {
+            return -1;
+          } else if (a.date > b.date) {
+            return 1;
+          } else {
+            return a.id - b.id;
+          }
+        });
       }
     },
+
   methods: {
     addEvent: function() {
       const event = {
